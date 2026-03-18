@@ -23,6 +23,7 @@ export default defineConfig({
           if (id.includes("/three/")) return "three-core-vendor";
           if (id.includes("@radix-ui")) return "radix-vendor";
           if (id.includes("framer-motion") || id.includes("gsap")) return "motion-vendor";
+          if (id.includes("@tsparticles") || id.includes("@number-flow")) return "particles-vendor";
           if (id.includes("react") || id.includes("react-dom") || id.includes("react-router")) return "react-vendor";
           return "vendor";
         },

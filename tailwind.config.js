@@ -62,7 +62,9 @@ module.exports = {
   				ring: 'hsl(var(--sidebar-ring))'
   			},
   			success: 'hsl(var(--success))',
-  			warning: 'hsl(var(--warning))'
+  			warning: 'hsl(var(--warning))',
+  			'sparkles-color': 'var(--sparkles-color)',
+  			'gradient-color': 'var(--gradient-color)'
   		},
   		fontFamily: {
   			sans: ['Inter', 'system-ui', 'sans-serif'],

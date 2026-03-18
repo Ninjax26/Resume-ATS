@@ -16,6 +16,7 @@ import HowItWorksSection from './ats-checker/HowItWorksSection';
 import StatsSection from './ats-checker/StatsSection';
 import TestimonialsSection from './ats-checker/TestimonialsSection';
 import CTASection from './ats-checker/CTASection';
+import PricingSection from './ui/pricing-section';
 import HistoryPanel from './ats-checker/HistoryPanel';
 import ScoreRadar from './ats-checker/ScoreRadar';
 import ResultsSummary from './ats-checker/ResultsSummary';
@@ -150,6 +151,7 @@ function Home() {
             <HowItWorksSection />
             <StatsSection />
             <TestimonialsSection />
+            <PricingSection />
             <CTASection onAnalyze={handleGetStarted} />
           </>
         )}
