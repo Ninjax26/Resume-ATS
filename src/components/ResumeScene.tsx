@@ -30,26 +30,34 @@ export default function ResumeScene() {
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if (!containerRef.current) return;
+        if (!containerRef.current || typeof window === 'undefined') return;
 
         const container = containerRef.current;
+        let renderer: WebGLRenderer;
+
+        try {
+            renderer = new WebGLRenderer({
+                alpha: true,
+                antialias: true,
+                powerPreference: 'high-performance',
+            });
+        } catch (error) {
+            console.error('ResumeScene failed to initialize WebGL:', error);
+            return;
+        }
 
         // ── Scene Setup ──
         const scene = new Scene();
+        const safeHeight = Math.max(container.clientHeight, 1);
         const camera = new PerspectiveCamera(
             45,
-            container.clientWidth / container.clientHeight,
+            container.clientWidth / safeHeight,
             0.1,
             100
         );
         camera.position.z = 5;
 
-        const renderer = new WebGLRenderer({
-            alpha: true,
-            antialias: true,
-            powerPreference: 'high-performance',
-        });
-        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setSize(container.clientWidth, safeHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         container.appendChild(renderer.domElement);
 
@@ -71,7 +79,7 @@ export default function ResumeScene() {
 
         // ── Resume Mesh (receives mouse tilt only) ──
         const textureLoader = new TextureLoader();
-        const texture = textureLoader.load('/resume.png');
+        const texture = textureLoader.load(`${import.meta.env.BASE_URL}resume.png`);
         texture.colorSpace = SRGBColorSpace;
 
         const geometry = new PlaneGeometry(2.1, 2.97); // A4 ratio
@@ -217,7 +225,7 @@ export default function ResumeScene() {
         const handleResize = () => {
             if (!container) return;
             const width = container.clientWidth;
-            const height = container.clientHeight;
+            const height = Math.max(container.clientHeight, 1);
 
             camera.aspect = width / height;
             camera.updateProjectionMatrix();

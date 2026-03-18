@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import { Button } from '@/components/ui/button';
 
 const ResumeScene = lazy(() => import('../ResumeScene'));
@@ -13,9 +14,11 @@ export default function HeroSection({ onGetStarted }: HeroSectionProps) {
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <Suspense fallback={null}>
-          <ResumeScene />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={null}>
+            <ResumeScene />
+          </Suspense>
+        </ErrorBoundary>
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#00E5FF] opacity-10 blur-[120px] rounded-full"></div>
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#00E5FF] opacity-10 blur-[120px] rounded-full"></div>
       </div>
